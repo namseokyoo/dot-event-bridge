@@ -1,0 +1,13 @@
+{
+  "request_type": "registration_request",
+  "agent_name": "example-agent",
+  "responsible_owner": "OWNER_TO_CONFIRM",
+  "purpose": "Summarize synthetic test requests",
+  "requested_operations": ["summarize"],
+  "requested_sender_id": "example-agent",
+  "data_classification": "synthetic-only",
+  "private_network_identity": "OWNER_TO_VERIFY_OUT_OF_BAND",
+  "requested_expiry": "OWNER_TO_SET",
+  "expected_messages_per_minute": 1,
+  "callback_or_shell_execution_requested": false
+}

@@ -1,0 +1,14 @@
+{
+  "operating_mode": "production",
+  "tunnel_id": "REPLACE_WITH_YOUR_TUNNEL_ID",
+  "principals": [],
+  "callback_hosts": ["connectors.api.openai.com"],
+  "limits": {
+    "requests_per_minute": 120,
+    "messages_per_minute": 10,
+    "pending_per_sender": 100,
+    "max_messages": 10000,
+    "subscriptions_per_consumer": 32,
+    "processing_timeout": 900
+  }
+}

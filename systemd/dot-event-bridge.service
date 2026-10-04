@@ -1,0 +1,24 @@
+[Unit]
+Description=Private dot event bridge
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+[Service]
+Type=simple
+WorkingDirectory=%h/dot-event-bridge
+ExecStart=/usr/bin/python3 %h/dot-event-bridge/run_service.py
+Restart=on-failure
+RestartSec=10
+TimeoutStopSec=130
+KillMode=mixed
+UMask=0077
+NoNewPrivileges=yes
+PrivateTmp=yes
+LimitCORE=0
+MemoryMax=256M
+TasksMax=64
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target
