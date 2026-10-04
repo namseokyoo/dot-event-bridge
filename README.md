@@ -128,10 +128,17 @@ python3 runtime_key_input.py --ssh-host YOUR_EXISTING_PRIVATE_ALIAS --remote-dir
 ```
 
    It sends only via encrypted SSH stdin to `runtime_key_receive.py`. It refuses
-   echo fallback and an existing destination. The server must already contain the
-   scripts. `ops/runtime-key` is exclusive 0600; no service starts. For rotation,
-   stop the service, revoke the old key, explicitly remove that revoked file, and
-   enter a new key. Review a failed save before retrying.
+   echo fallback and unsafe/symlink destinations. A final explicit YES authorizes
+   creation or replacement of only the runtime key. The server must already contain the
+   scripts. `ops/runtime-key` is 0600 inside an owner-only 0700 directory; no service starts.
+   Replacement writes a same-directory 0600 staging file, fsyncs it, atomically
+   replaces the target and fsyncs the directory. A failure before replacement
+   preserves the old file; an interrupted/failed result requires status review.
+   No secret is placed in shell arguments, SSH arguments or logs. For rotation,
+   stop the service, revoke the old key and enter a new key. The old file is never
+   read. Parent symlinks, other-user writable groups and world-writable paths
+   are rejected; a verified single-owner primary group is allowed. Review a
+   failed save before retrying.
 6. Copy `activation.example.json` to `ops/activation.json` mode 0600. Only the
    owner changes all three flags to true after key safety, target approvals and
    operating authorization are actually complete. These flags record the owner's
